@@ -7,6 +7,8 @@ import DeleteIcon from "@material-ui/icons/DeleteTwoTone";
 
 import { MAP_TOKEN } from '../constants'
 import Context from '../context';
+import { GET_PINS_QUERY } from '../graphql/queries';
+import { useClient } from '../client';
 
 import PinIcon from './PinIcon';
 import Blog from './Blog';
@@ -20,11 +22,18 @@ const INITIAL_VIEWPORT = {
 
 const Map = ({ classes }) => {
   const { state, dispatch } = useContext(Context);
+  const client = useClient();
+
   const [ viewport, setViewport ] = useState(INITIAL_VIEWPORT);
   const [ userPosition, setUserPosition ] = useState(null);
 
+
   useEffect(() => {
     getUserPosition()
+  }, []);
+
+  useEffect(() => {
+    getPins()
   }, []);
 
   const getUserPosition = () => {
@@ -44,6 +53,15 @@ const Map = ({ classes }) => {
         })
       });
     }
+  }
+
+  const getPins = async () => {
+    const { getPins } = await client.request(GET_PINS_QUERY);
+
+    dispatch({
+      type: "GET_PINS",
+      payload: getPins
+    })
   }
 
   const handleMapClick = ({ lngLat, leftButton }) => {
@@ -98,6 +116,20 @@ const Map = ({ classes }) => {
           <PinIcon size={40} color="hotpink" />
         </Marker>
       )}
+
+      {
+        state.pins.map((pin) => (
+          <Marker
+            key={pin._id}
+            latitude={pin.latitude}
+            longitude={pin.longitude}
+            offsetLeft={-19}
+            offsetTop={-37}
+          >
+            <PinIcon size={40} color="darkblue" />
+          </Marker>
+        ))
+      }
     </ReactMapGL>
     <Blog/>
   </div>;
