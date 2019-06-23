@@ -38,11 +38,13 @@ const Login = ({ classes }) => {
       });
 
     } catch(e) {
-      onFailure(e)
+      onFailure(e);
+      dispatch({
+        type: 'IS_LOGGED_IN',
+        payload: false,
+      });
     }
   }
-
-
 
   return (
     <div className={classes.root}>
