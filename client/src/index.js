@@ -13,13 +13,15 @@ import Splash from "./pages/Splash";
 
 import * as serviceWorker from "./serviceWorker";
 
+import { API_URL_WS } from './constants';
+
 import { ApolloProvider } from "react-apollo";
 import { ApolloClient } from "apollo-client";
 import { WebSocketLink } from "apollo-link-ws";
 import { InMemoryCache } from "apollo-cache-inmemory";
 
 const wsLink = new WebSocketLink({
-  uri: "ws://localhost:4000/graphql",
+  uri: API_URL_WS,
   options: {
     reconnect: true
   }

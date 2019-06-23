@@ -1,11 +1,11 @@
 {
   "name": "geopins",
   "version": "1.0.0",
-  "description": "",
-  "main": "server.js",
+  "description": "geopins",
+  "main": "index.js",
   "scripts": {
-    "start": "node server.js",
-    "dev": "nodemon --ignore client/ server.js"
+    "start": "node index.js",
+    "dev": "nodemon index.js"
   },
   "keywords": [],
   "author": "",
