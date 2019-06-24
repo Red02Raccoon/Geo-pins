@@ -1,36 +1,42 @@
-const {OAuth2Client} = require('google-auth-library');
+const { OAuth2Client } = require('google-auth-library')
 
-const User = require('../models/User');
+const User = require('../models/User')
 
-const client = new OAuth2Client(process.env.OAUTH_CLIENT_ID);
+const client = new OAuth2Client(process.env.OAUTH_CLIENT_ID)
 
 exports.findOrCreateUser = async token => {
-  const googleUser = await verifyAuthToken(token);
+  const googleUser = await verifyAuthToken(token)
 
-  const user = await checkIfUserExists(googleUser.email);
+  const user = await checkIfUserExists(googleUser.email)
 
-  return user ? user : createUser(googleUser);
+  return user ? user : createUser(googleUser)
 }
 
 const verifyAuthToken = async token => {
-  try{
+  try {
     const ticket = await client.verifyIdToken({
       idToken: token,
-      audience: process.env.OAUTH_CLIENT_ID
-    });
+      audience: process.env.OAUTH_CLIENT_ID,
+    })
 
-    return ticket.getPayload();
-  } catch(e) {
-    console.error("Error verifying auth token", err);
+    return ticket.getPayload()
+  } catch (e) {
+    console.error('Error verifying auth token', err)
   }
 }
 
-const checkIfUserExists = async email => await User.findOne({ email }).exec();
+const checkIfUserExists = async email =>
+  await User.findOne({
+    email,
+  }).exec()
 
 const createUser = googleUser => {
-  const { name, email, picture } = googleUser;
-  const user = { name, email, picture };
+  const { name, email, picture } = googleUser
+  const user = {
+    name,
+    email,
+    picture,
+  }
 
   return new Use(user).save()
 }
-
