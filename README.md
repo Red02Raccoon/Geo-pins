@@ -1,5 +1,5 @@
 ### Geo-pins
 
-> react-hooks 
-
-> graphQL
+- react hooks
+- graphQL
+- google auth
