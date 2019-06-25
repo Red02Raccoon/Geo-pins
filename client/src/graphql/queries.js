@@ -34,4 +34,4 @@ export const GET_PINS_QUERY = `
       }
     }
   }
-`;
+`

@@ -1,4 +1,4 @@
-import { createContext } from 'react';
+import { createContext } from 'react'
 
 const Context = createContext({
   currentUser: null,
@@ -6,6 +6,6 @@ const Context = createContext({
   draft: null,
   pins: [],
   currentPin: null,
-});
+})
 
-export default Context;
+export default Context

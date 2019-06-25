@@ -1,39 +1,35 @@
-import React, { useState, useContext } from "react";
-import { withStyles } from "@material-ui/core";
-import InputBase from "@material-ui/core/InputBase";
-import IconButton from "@material-ui/core/IconButton";
-import ClearIcon from "@material-ui/icons/Clear";
-import SendIcon from "@material-ui/icons/Send";
-import Divider from "@material-ui/core/Divider";
+import React, { useState, useContext } from 'react'
+import { withStyles } from '@material-ui/core'
+import InputBase from '@material-ui/core/InputBase'
+import IconButton from '@material-ui/core/IconButton'
+import ClearIcon from '@material-ui/icons/Clear'
+import SendIcon from '@material-ui/icons/Send'
+import Divider from '@material-ui/core/Divider'
 
-import { CREATE_COMMENT_MUTATION } from "../../graphql/mutations";
-import { useClient } from "../../client";
-import Context from "../../context";
+import { CREATE_COMMENT_MUTATION } from '../../graphql/mutations'
+import { useClient } from '../../client'
+import Context from '../../context'
 
 const CreateComment = ({ classes }) => {
-  const client = useClient();
-  const { state, dispatch } = useContext(Context);
-  const [comment, setComment] = useState("");
+  const client = useClient()
+  const { state, dispatch } = useContext(Context)
+  const [comment, setComment] = useState('')
 
   const handleSubmitComment = async () => {
-    const variables = { pinId: state.currentPin._id, text: comment };
-    const updatedPin = await client.request(CREATE_COMMENT_MUTATION, variables);
+    const variables = { pinId: state.currentPin._id, text: comment }
+    const updatedPin = await client.request(CREATE_COMMENT_MUTATION, variables)
     console.log('comment', updatedPin)
     // dispatch({
     //   type: "CREATE_COMMENT",
     //   payload: updatedPin,
     // })
-    setComment("");
-  };
+    setComment('')
+  }
 
   return (
     <>
       <form className={classes.form}>
-        <IconButton
-          onClick={() => setComment("")}
-          disabled={!comment.trim()}
-          className={classes.clearButton}
-        >
+        <IconButton onClick={() => setComment('')} disabled={!comment.trim()} className={classes.clearButton}>
           <ClearIcon />
         </IconButton>
         <InputBase
@@ -43,36 +39,32 @@ const CreateComment = ({ classes }) => {
           value={comment}
           onChange={e => setComment(e.target.value)}
         />
-        <IconButton
-          onClick={handleSubmitComment}
-          disabled={!comment.trim()}
-          className={classes.sendButton}
-        >
+        <IconButton onClick={handleSubmitComment} disabled={!comment.trim()} className={classes.sendButton}>
           <SendIcon />
         </IconButton>
       </form>
       <Divider />
     </>
-  );
-};
+  )
+}
 
 const styles = theme => ({
   form: {
-    display: "flex",
-    alignItems: "center"
+    display: 'flex',
+    alignItems: 'center',
   },
   input: {
     marginLeft: 8,
-    flex: 1
+    flex: 1,
   },
   clearButton: {
     padding: 0,
-    color: "red"
+    color: 'red',
   },
   sendButton: {
     padding: 0,
-    color: theme.palette.secondary.dark
-  }
-});
+    color: theme.palette.secondary.dark,
+  },
+})
 
-export default withStyles(styles)(CreateComment);
+export default withStyles(styles)(CreateComment)

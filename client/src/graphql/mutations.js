@@ -22,7 +22,7 @@ export const CREATE_PIN_MUTATION = `
       }
     }
   }
-`;
+`
 
 export const DELETE_PIN_MUTATION = `
   mutation($pinId: ID!) {
@@ -30,7 +30,7 @@ export const DELETE_PIN_MUTATION = `
       _id
     }
   }
-`;
+`
 
 export const CREATE_COMMENT_MUTATION = `
   mutation($pinId: ID!, $text: String!) {
@@ -56,4 +56,4 @@ export const CREATE_COMMENT_MUTATION = `
       }
     }
   }
-`;
+`

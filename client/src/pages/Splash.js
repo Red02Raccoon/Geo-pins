@@ -1,14 +1,14 @@
-import React, { useContext } from "react";
-import { Redirect } from 'react-router-dom';
+import React, { useContext } from 'react'
+import { Redirect } from 'react-router-dom'
 
-import Context from '../context';
+import Context from '../context'
 
-import Login from '../components/Auth/Login';
+import Login from '../components/Auth/Login'
 
 const Splash = () => {
-  const { state } = useContext(Context);
+  const { state } = useContext(Context)
 
-  return state.isAuth ? <Redirect to='/' /> : <Login/>
-};
+  return state.isAuth ? <Redirect to="/" /> : <Login />
+}
 
-export default Splash;
+export default Splash

@@ -1,14 +1,14 @@
 export default function reducer(state, { type, payload }) {
-  switch(type) {
+  switch (type) {
     case 'LOGIN_USER':
       return {
         ...state,
-        currentUser: payload
+        currentUser: payload,
       }
     case 'IS_LOGGED_IN':
       return {
         ...state,
-        isAuth: payload
+        isAuth: payload,
       }
     case 'SIGNOUT_USER':
       return {
@@ -28,7 +28,7 @@ export default function reducer(state, { type, payload }) {
     case 'UPDATE_DRAFT_LOCATION':
       return {
         ...state,
-        draft: payload
+        draft: payload,
       }
     case 'DELETE_DRAFT':
       return {
@@ -40,48 +40,46 @@ export default function reducer(state, { type, payload }) {
         ...state,
         pins: payload,
       }
-    case "CREATE_PIN":
-      const newPin = payload;
-      const prevPins = state.pins.filter(pin => pin._id !== newPin._id);
+    case 'CREATE_PIN':
+      const newPin = payload
+      const prevPins = state.pins.filter(pin => pin._id !== newPin._id)
       return {
         ...state,
-        pins: [...prevPins, newPin]
-      };
+        pins: [...prevPins, newPin],
+      }
     case 'SET_PIN':
       return {
         ...state,
         currentPin: payload,
         draft: null,
       }
-    case "DELETE_PIN":
-      const deletedPin = payload;
-      const filteredPins = state.pins.filter(pin => pin._id !== deletedPin._id);
+    case 'DELETE_PIN':
+      const deletedPin = payload
+      const filteredPins = state.pins.filter(pin => pin._id !== deletedPin._id)
       if (state.currentPin) {
-        const isCurrentPin = deletedPin._id === state.currentPin._id;
+        const isCurrentPin = deletedPin._id === state.currentPin._id
         if (isCurrentPin) {
           return {
             ...state,
             pins: filteredPins,
-            currentPin: null
-          };
+            currentPin: null,
+          }
         }
       }
       return {
         ...state,
         pins: filteredPins,
-      };
-    case "CREATE_COMMENT":
-      const updatedCurrentPin = payload;
+      }
+    case 'CREATE_COMMENT':
+      const updatedCurrentPin = payload
       // find and replace
-      const updatedPins = state.pins.map(pin =>
-        pin._id === updatedCurrentPin._id ? updatedCurrentPin : pin
-      );
+      const updatedPins = state.pins.map(pin => (pin._id === updatedCurrentPin._id ? updatedCurrentPin : pin))
       return {
         ...state,
         pins: updatedPins,
-        currentPin: updatedCurrentPin
-      };
+        currentPin: updatedCurrentPin,
+      }
     default:
-      return state;
+      return state
   }
 }
