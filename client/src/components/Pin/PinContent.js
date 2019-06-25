@@ -1,4 +1,5 @@
 import React, { useContext } from 'react'
+
 import { withStyles } from '@material-ui/core/styles'
 import Typography from '@material-ui/core/Typography'
 import AccessTimeIcon from '@material-ui/icons/AccessTime'
@@ -10,8 +11,11 @@ import Comments from '../Comment/Comments'
 import Context from '../../context'
 
 const PinContent = ({ classes }) => {
-  const { state } = useContext(Context)
-  const { title, content, author, createdAt, comments } = state.currentPin
+  const {
+    state: { currentPin },
+  } = useContext(Context)
+  const { title, content, author, createdAt, comments } = currentPin
+
   return (
     <div className={classes.root}>
       <Typography component="h2" variant="h4" color="primary" gutterBottom>
@@ -28,7 +32,6 @@ const PinContent = ({ classes }) => {
         {content}
       </Typography>
 
-      {/* Pin Comments */}
       <CreateComment />
       {comments && <Comments comments={comments} />}
     </div>

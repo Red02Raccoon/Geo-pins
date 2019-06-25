@@ -1,5 +1,6 @@
 import React, { useState, useEffect, useContext } from 'react'
 import ReactMapGL, { NavigationControl, Marker, Popup } from 'react-map-gl'
+import { Subscription } from 'react-apollo'
 import differenceInMinutes from 'date-fns/difference_in_minutes'
 
 import { withStyles } from '@material-ui/core/styles'
@@ -7,7 +8,6 @@ import Button from '@material-ui/core/Button'
 import Typography from '@material-ui/core/Typography'
 import DeleteIcon from '@material-ui/icons/DeleteTwoTone'
 import { unstable_useMediaQuery as useMediaQuery } from '@material-ui/core/useMediaQuery'
-import { Subscription } from 'react-apollo'
 
 import { MAP_TOKEN } from '../constants'
 import Context from '../context'

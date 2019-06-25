@@ -1,4 +1,5 @@
 import React, { useState, useContext } from 'react'
+
 import { withStyles } from '@material-ui/core'
 import InputBase from '@material-ui/core/InputBase'
 import IconButton from '@material-ui/core/IconButton'
@@ -12,17 +13,12 @@ import Context from '../../context'
 
 const CreateComment = ({ classes }) => {
   const client = useClient()
-  const { state, dispatch } = useContext(Context)
+  const { state } = useContext(Context)
   const [comment, setComment] = useState('')
 
   const handleSubmitComment = async () => {
     const variables = { pinId: state.currentPin._id, text: comment }
-    const updatedPin = await client.request(CREATE_COMMENT_MUTATION, variables)
-    console.log('comment', updatedPin)
-    // dispatch({
-    //   type: "CREATE_COMMENT",
-    //   payload: updatedPin,
-    // })
+    await client.request(CREATE_COMMENT_MUTATION, variables)
     setComment('')
   }
 

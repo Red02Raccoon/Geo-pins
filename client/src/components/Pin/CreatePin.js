@@ -1,5 +1,4 @@
 import React, { useState, useContext } from 'react'
-import { GraphQLClient } from 'graphql-request'
 import axios from 'axios'
 
 import { withStyles } from '@material-ui/core/styles'
@@ -14,6 +13,7 @@ import { unstable_useMediaQuery as useMediaQuery } from '@material-ui/core/useMe
 
 import Context from '../../context'
 import { useClient } from '../../client'
+import { CLOUDINARY_URL, CLOUDINARY_NAME, CLOUDINARY_PRESET } from '../../constants'
 import { CREATE_PIN_MUTATION } from '../../graphql/mutations'
 
 const CreatePin = ({ classes }) => {
@@ -40,10 +40,10 @@ const CreatePin = ({ classes }) => {
   const handleImageUpload = async () => {
     const data = new FormData()
     data.append('file', image)
-    data.append('upload_preset', 'geopins')
-    data.append('cloud_name', 'red02raccoon')
+    data.append('upload_preset', CLOUDINARY_PRESET)
+    data.append('cloud_name', CLOUDINARY_NAME)
 
-    const res = await axios.post('https://api.cloudinary.com/v1_1/red02Raccoon/image/upload', data)
+    const res = await axios.post(CLOUDINARY_URL, data)
 
     return res.data.url
   }
@@ -61,7 +61,6 @@ const CreatePin = ({ classes }) => {
       const { createPin } = await client.request(CREATE_PIN_MUTATION, variables)
       handleDeleteDraft()
 
-      console.log('Pin created', createPin)
       dispatch({
         type: 'CREATE_PIN',
         payload: createPin,
